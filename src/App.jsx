@@ -65,6 +65,7 @@ const initialState = {
   logoBackgroundColor: "#ffffff",
   backgroundImage: null,
   backgroundImageAlpha: 1,
+  downloadFilename: "qrcode",
 };
 
 function App() {
@@ -184,7 +185,7 @@ function App() {
   };
 
   const onClickDownload = () => {
-    qrInstanceRef.current?.download("qrcode");
+    qrInstanceRef.current?.download(state.downloadFilename);
   };
 
   return (
@@ -423,6 +424,15 @@ function App() {
                 />
               </div>
             </div>
+
+            <FormGroup className="col-span-2" label="Download Filename" labelFor="downloadFilename">
+              <InputGroup
+                id="downloadFilename"
+                name="downloadFilename"
+                value={state.downloadFilename}
+                onChange={onChangeInput}
+              />
+            </FormGroup>
           </div>
 
           <div className="flex justify-center py-20 my-2 bg-gray-100">
