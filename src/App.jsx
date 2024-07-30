@@ -232,6 +232,7 @@ function App() {
                 color={state.colorDark}
                 onChange={onChangeColor("colorDark")}
                 onChangeComplete={onChangeColor("colorDark")}
+                triangle="hide"
               />
             </div>
 
@@ -241,6 +242,7 @@ function App() {
                 color={state.colorLight}
                 onChange={onChangeColor("colorLight")}
                 onChangeComplete={onChangeColor("colorLight")}
+                triangle="hide"
               />
             </div>
 
