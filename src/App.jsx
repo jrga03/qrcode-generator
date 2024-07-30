@@ -50,7 +50,7 @@ function reducer(state, action) {
 }
 
 const initialState = {
-  text: "Hello world!",
+  text: "https://www.google.com/",
   width: 256,
   height: 256,
   correctLevel: "H",
