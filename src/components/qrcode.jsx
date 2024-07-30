@@ -10,8 +10,7 @@ const QRCodeComponent = memo(
 
         const {
           text,
-          width,
-          height,
+          size,
           colorDark,
           colorLight,
           correctLevel,
@@ -29,8 +28,8 @@ const QRCodeComponent = memo(
         // Options for QR code generation
         const options = {
           text,
-          width,
-          height,
+          width: size,
+          height: size,
           colorDark,
           colorLight,
           correctLevel: QRCode.CorrectLevel[correctLevel],
@@ -40,8 +39,8 @@ const QRCodeComponent = memo(
           quietZone,
           quietZoneColor: colorLight,
           logo,
-          logoWidth: Math.min(Math.max(logoWidth, 0), width / 3.5),
-          logoHeight: Math.min(Math.max(logoHeight, 0), height / 3.5),
+          logoWidth: Math.min(Math.max(logoWidth, 0), size / 3.5),
+          logoHeight: Math.min(Math.max(logoHeight, 0), size / 3.5),
           logoBackgroundTransparent,
           logoBackgroundColor,
           backgroundImage,

@@ -11,9 +11,10 @@ import {
   Slider,
   Switch,
 } from "@blueprintjs/core";
+import clsx from "clsx";
+import { BlockPicker } from "react-color";
 
 import QRCodeComponent from "./components/qrcode";
-import clsx from "clsx";
 
 /**
  * @desc Read a file as a data uri
@@ -51,8 +52,7 @@ function reducer(state, action) {
 
 const initialState = {
   text: "https://www.google.com/",
-  width: 256,
-  height: 256,
+  size: 500,
   correctLevel: "H",
   colorDark: "#000000",
   colorLight: "#ffffff",
@@ -107,6 +107,14 @@ function App() {
     });
   };
 
+  const onChangeColor = (name) => (value) => {
+    dispatch({
+      type: "change",
+      field: name,
+      value: value.hex,
+    });
+  };
+
   const onChangeLogo = async (e) => {
     const { files } = e.target;
 
@@ -118,8 +126,8 @@ function App() {
         type: "bulk_change",
         values: {
           logo: dataUri,
-          logoWidth: Math.floor(state.width / 3.5),
-          logoHeight: Math.floor(state.height / 3.5),
+          logoWidth: Math.floor(state.size / 3.5),
+          logoHeight: Math.floor(state.size / 3.5),
         },
       });
     }
@@ -190,25 +198,11 @@ function App() {
               <InputGroup id="text" name="text" value={state.text} onChange={onChangeInput} />
             </FormGroup>
 
-            <FormGroup label="Width" labelFor="width">
+            <FormGroup className="col-span-2" label="Size" labelFor="size">
               <NumericInput
-                id="width"
-                name="width"
-                value={state.width}
-                onValueChange={onChangeNumeric}
-                fill
-                allowNumericCharactersOnly
-                min={1}
-                max={Number.MAX_SAFE_INTEGER}
-                clampValueOnBlur
-              />
-            </FormGroup>
-
-            <FormGroup label="Height" labelFor="height">
-              <NumericInput
-                id="height"
-                name="height"
-                value={state.height}
+                id="size"
+                name="size"
+                value={state.size}
                 onValueChange={onChangeNumeric}
                 fill
                 allowNumericCharactersOnly
@@ -234,34 +228,20 @@ function App() {
 
             <div className="mb-4">
               <label className="block mb-1">Color Dark</label>
-              <div className="flex items-center">
-                <input
-                  id="colorDark"
-                  name="colorDark"
-                  type="color"
-                  value={state.colorDark}
-                  onChange={onChangeInput}
-                />
-                <label htmlFor="colorDark" className="ml-2 uppercase">
-                  {state.colorDark}
-                </label>
-              </div>
+              <BlockPicker
+                color={state.colorDark}
+                onChange={onChangeColor("colorDark")}
+                onChangeComplete={onChangeColor("colorDark")}
+              />
             </div>
 
             <div className="mb-4">
               <label className="block mb-1">Color Light</label>
-              <div className="flex items-center">
-                <input
-                  id="colorLight"
-                  name="colorLight"
-                  type="color"
-                  value={state.colorLight}
-                  onChange={onChangeInput}
-                />
-                <label htmlFor="colorLight" className="ml-2 uppercase">
-                  {state.colorLight}
-                </label>
-              </div>
+              <BlockPicker
+                color={state.colorLight}
+                onChange={onChangeColor("colorLight")}
+                onChangeComplete={onChangeColor("colorLight")}
+              />
             </div>
 
             <div className="mb-4">
@@ -331,7 +311,7 @@ function App() {
                     fill
                     allowNumericCharactersOnly
                     min={0}
-                    max={Math.floor(state.width / 3.5)}
+                    max={Math.floor(state.size / 3.5)}
                     clampValueOnBlur
                     stepSize={1}
                   />
@@ -346,7 +326,7 @@ function App() {
                     fill
                     allowNumericCharactersOnly
                     min={0}
-                    max={Math.floor(state.height / 3.5)}
+                    max={Math.floor(state.size / 3.5)}
                     clampValueOnBlur
                     stepSize={1}
                   />
